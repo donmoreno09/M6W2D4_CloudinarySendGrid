@@ -1,0 +1,70 @@
+@baseUrl = http://localhost:3001
+@blogId = 67e02147e931f1ce7f7e8252      
+@authorId = 67d97691ee89fd9e2cc800bf 
+
+###
+
+# Test GET all blogs
+GET {{baseUrl}}/blogs
+Content-Type: application/json
+
+###
+
+# Test GET a single blog by ID
+GET {{baseUrl}}/blogs/{{blogId}}
+Content-Type: application/json
+
+###
+
+# Test POST a new blog
+POST {{baseUrl}}/blogs
+Content-Type: application/json
+
+{
+  "category": "Food",
+  "title": "5 Easy Recipes for Beginners",
+  "cover": "https://example.com/food-cover.jpg",
+  "content": "Learn how to cook 5 simple and delicious recipes that anyone can make at home.",
+  "readTime": {
+    "value": 6,
+    "unit": "minutes"
+  },
+  "author": "{{authorId}}"
+}
+
+###
+
+# Test PUT (update) a blog by ID
+PUT {{baseUrl}}/blogs/{{blogId}}
+Content-Type: application/json
+
+{
+  "category": "Updated Technology",
+  "title": "Updated Blog Title",
+  "cover": "https://example.com/updated-cover.jpg",
+  "content": "Updated content for the blog.",
+  "readTime": {
+    "value": 7,
+    "unit": "minutes"
+  },
+  "author": "{{authorId}}"
+}
+
+###
+
+# Test DELETE a blog by ID
+DELETE {{baseUrl}}/blogs/{{blogId}}
+Content-Type: application/json
+
+###
+
+# Test PATCH upload blog cover
+PATCH {{baseUrl}}/blogs/{{blogId}}/cover
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="cover"; filename="cover.jpg"
+Content-Type: image/jpeg
+
+< ./test-images/cover.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
